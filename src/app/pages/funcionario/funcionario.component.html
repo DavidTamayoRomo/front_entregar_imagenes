@@ -1,0 +1,102 @@
+<div class="card">
+
+    <form (ngSubmit)="crearFuncionario()" autocomplete="off" [formGroup]="registerForm">
+
+        <div class="card-body">
+            <div class="form-group">
+                <div class="demo-switch-title">Estado</div>
+                <div class="switch">
+                    <label>
+                        <input type="checkbox" checked="" formControlName="estado"><span
+                            class="lever switch-col-cyan"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Cargo *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Cargo" formControlName="cargo">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('cargo')">El cargo de la tipo es obligatorio</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Nombres *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Nombres" formControlName="nombres">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('nombres')">Los nombres son obligatorios</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleInputuname">Apellidos *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Apellidos" formControlName="apellidos">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('apellidos')">Los apellidos son obligatorios</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputuname">Titulo *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="Titulo" formControlName="titulo">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('titulo')">El titulo es obligatorio</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleInputuname">Descripcion *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="text" class="form-control" placeholder="descripcion" formControlName="descripcion">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('descripcion')">La descripcion es obligatorio</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleInputuname">Fecha Nacimiento *</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                    <input type="date" class="form-control" placeholder="fechaNacimiento" formControlName="fechaNacimiento">
+                </div>
+                <div class="text-danger">
+                    <p *ngIf="campoNoValido('fechaNacimiento')">La fechaNacimiento es obligatorio</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <ngx-dropzone (change)="onSelect($event)">
+                    <ngx-dropzone-label>Arrastrar aqui o hacer click</ngx-dropzone-label>
+                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+                </ngx-dropzone>
+            </div>
+
+
+
+
+            <div>
+                <button type="submit" class="btn btn-primary waves-effect waves-light m-r-10">Guardar</button>
+                <a (click)="cancelarGuardado()" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+            </div>
+
+        </div>
+    </form>
+
+</div>

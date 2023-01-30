@@ -1,0 +1,8 @@
+{
+    "/api": {
+        "target": "https://sso-poc.quito.gob.ec:9443",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}
