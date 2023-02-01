@@ -81,7 +81,7 @@
                                     </button>
                                 </td>
                                 <td class="text-nowrap">
-                                    <a [routerLink]="['/imagen',imagen._id]" data-toggle="tooltip"
+                                    <a (click)="editar(imagen)"  data-toggle="tooltip"
                                         data-original-title="Editar"> <i class="ti-pencil"></i> </a>
                                     <a data-toggle="tooltip" data-original-title="Borrar"
                                         (click)="borrarImagen(imagen)">

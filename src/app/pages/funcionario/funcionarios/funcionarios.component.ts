@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FuncionarioService } from 'src/app/services/funcionario.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { Wso2Service } from 'src/app/services/wso2.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { Funcionario } from '../funcionario.model';
@@ -23,11 +25,14 @@ export class FuncionariosComponent implements OnInit {
   public funcionariosTemporales:Funcionario [] = [];
 
   constructor(
-    private funcionarioService:FuncionarioService
+    private funcionarioService:FuncionarioService,
+    private wso2Service:Wso2Service,
+    private utilsService:UtilsService,
     ) { }
 
   ngOnInit(): void {
     this.cargarfuncionarios();
+    this.wso2Service.getToken().subscribe();
   }
 
   cargarfuncionarios(){
@@ -55,10 +60,16 @@ export class FuncionariosComponent implements OnInit {
   }
 
   buscar(busqueda:any){
+
     if (busqueda.length === 0) {
-      return this.funcionarios = this.funcionariosTemporales;
+      this.funcionarios = this.funcionariosTemporales;
     }
-    return null;
+    this.utilsService.busqueda('funcionario',busqueda).subscribe(
+      (resp:any)=>{
+        console.log(resp);
+        this.funcionarios = resp.data;
+      }
+    );
   }
 
 
@@ -115,6 +126,18 @@ export class FuncionariosComponent implements OnInit {
       timer: 900
     })
     
+  }
+
+  copiarImagen(funcionario:any){
+    let url = `${base_url}/funcionario/devolverImagen/${funcionario.cargo}`;
+    navigator.clipboard.writeText(url);
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Copiado correctamente',
+      showConfirmButton: false,
+      timer: 900
+    })
   }
 
 }

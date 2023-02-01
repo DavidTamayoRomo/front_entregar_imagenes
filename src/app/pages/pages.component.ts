@@ -13,11 +13,7 @@ export class PagesComponent implements OnInit {
   constructor( private wso2Service:Wso2Service ) { }
 
   ngOnInit(): void {
-    this.wso2Service.getToken().subscribe((resp:any)=>{
-      console.log(resp);
-      localStorage.setItem('token',resp.data.access_token);
-    });
-
+    this.wso2Service.getToken().subscribe();
   }
 
 }

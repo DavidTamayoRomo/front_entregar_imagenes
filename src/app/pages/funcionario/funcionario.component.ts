@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
+import { Wso2Service } from 'src/app/services/wso2.service';
 import Swal from 'sweetalert2';
 import { Funcionario } from './funcionario.model';
 
@@ -23,11 +24,13 @@ export class FuncionarioComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private funcionarioService: FuncionarioService,
+    private wso2Service: Wso2Service,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.wso2Service.getToken().subscribe();
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarFuncionariobyId(id);
     });
@@ -141,7 +144,7 @@ export class FuncionarioComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/listaFuncionarioes');
+          this.router.navigateByUrl('/funcionarios');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -189,7 +192,7 @@ export class FuncionarioComponent implements OnInit {
           title: 'Se creo correctamente'
         })
         console.log(resp);
-        //this.router.navigateByUrl('/listaFuncionarioes');
+        this.router.navigateByUrl('/funcionarios');
       }, (err: any) => { });
     }
 
@@ -197,7 +200,7 @@ export class FuncionarioComponent implements OnInit {
   }
 
   cancelarGuardado() {
-    this.router.navigateByUrl('/listaFuncionarioes')
+    this.router.navigateByUrl('/funcionarios')
   }
 
 

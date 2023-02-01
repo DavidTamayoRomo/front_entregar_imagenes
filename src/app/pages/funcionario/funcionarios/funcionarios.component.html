@@ -60,7 +60,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let funcionario of funcionarios">
-                                <td>
+                                <td (click)="copiarImagen(funcionario)">
                                     <img [src]="funcionario?.imagen | imagen | async" height="130px">
                                 </td>
                                 <td>{{funcionario.cargo}}</td>

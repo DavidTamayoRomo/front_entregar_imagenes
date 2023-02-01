@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ImagenService } from 'src/app/services/imagen.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { Wso2Service } from 'src/app/services/wso2.service';
 import { environment } from 'src/environments/environment';
 
 import Swal from 'sweetalert2';
@@ -22,12 +25,17 @@ export class ImagenesComponent implements OnInit {
   public imagenesTemporales:Imagen [] = [];
 
   constructor(
-    private imagenService:ImagenService
+    private imagenService:ImagenService,
+    private wso2Service:Wso2Service,
+    private utilsService:UtilsService,
+    private router:Router
     ) { }
 
   ngOnInit(): void {
+    this.wso2Service.getToken().subscribe();
     this.cargarImagenes();
   }
+
 
   cargarImagenes(){
     this.cargando=true;
@@ -55,9 +63,14 @@ export class ImagenesComponent implements OnInit {
 
   buscar(busqueda:any){
     if (busqueda.length === 0) {
-      return this.imagenes = this.imagenesTemporales;
+      this.imagenes = this.imagenesTemporales;
     }
-    return null;
+    this.utilsService.busqueda('imagen',busqueda).subscribe(
+      (resp:any)=>{
+        console.log(resp);
+        this.imagenes = resp.data;
+      }
+    );
   }
 
 
@@ -123,6 +136,12 @@ export class ImagenesComponent implements OnInit {
       timer: 900
     })
     
+  }
+
+  editar(imagen:any){
+    //this.router.navigate(['/imagen/',imagen._id]);
+    //this.router.navigate(['/imagen'], { state: {data: imagen._id} });
+    document.location.href = `http://localhost:4200/imagen/${imagen._id}`;
   }
 
 }

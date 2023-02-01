@@ -5,6 +5,7 @@ import { ImagenService } from 'src/app/services/imagen.service';
 import { Imagen } from './imagen.model';
 
 import Swal from 'sweetalert2';
+import { Wso2Service } from 'src/app/services/wso2.service';
 
 @Component({
   selector: 'app-imagen',
@@ -20,21 +21,28 @@ export class ImagenComponent implements OnInit {
 
   ImagenModel = new Imagen();
 
+
+
   constructor(
     private fb: FormBuilder,
     private imagenService: ImagenService,
+    private wso2Service: Wso2Service,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(({ id }) => {
-      this.cargarImagenbyId(id);
-    });
+
+    console.log('DATOS ENVIADOS',this.activatedRoute.snapshot.params);
+    console.log('DATOS ENVIADOS', history.state.data);
+
+    this.wso2Service.getToken().subscribe();
+    
+    this.cargarImagenbyId(history.state.data);
   }
 
   async cargarImagenbyId(id: string) {
-    if (id === 'nuevo') {
+    if (id === 'nuevo' || id === undefined) {
       return;
     }
 
@@ -132,7 +140,7 @@ export class ImagenComponent implements OnInit {
             icon: 'success',
             title: 'Se actualizo correctamente'
           })
-          this.router.navigateByUrl('/listaimagenes');
+          this.router.navigateByUrl('/imagenes');
         }, (err: any) => {
 
           console.warn(err.error.message);
@@ -198,7 +206,7 @@ export class ImagenComponent implements OnInit {
           title: 'Se creo correctamente'
         })
         console.log(resp);
-        //this.router.navigateByUrl('/listaimagenes');
+        this.router.navigateByUrl('/imagenes');
       }, (err: any) => { });
     }
 
@@ -206,7 +214,7 @@ export class ImagenComponent implements OnInit {
   }
 
   cancelarGuardado() {
-    this.router.navigateByUrl('/listaimagenes')
+    this.router.navigateByUrl('/imagenes')
   }
 
 

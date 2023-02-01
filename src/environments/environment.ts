@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  url: "http://localhost:4200",
   base_url: "http://localhost:3000/api",
   url_wso2: "https://sso-poc.quito.gob.ec:9443"
   

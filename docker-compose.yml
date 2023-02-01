@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  smsrapp:
+    image: slogans-municipio-back
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4100:8989

@@ -19,7 +19,7 @@ const routes: Routes = [
       /**Rutas que necesitan autenticacion */
       {path:'dashboard', component:DashboardComponent},
 
-      {path:'imagen/:id', component:ImagenComponent},
+      {path:'imagen', component:ImagenComponent},
       {path:'imagenes', component:ImagenesComponent},
       
       {path:'funcionario/:id', component:FuncionarioComponent},

@@ -37,8 +37,9 @@ export class ImagenService {
   
   obtenerImagenById(id:string){
     const headers = this.retornarHeader();
+    console.log('HEADERS' , headers);
     return this.http.get(`${base_url}/imagen/${id}`, { headers: headers })
-  }
+  } 
   
   obtenerImagenByPath(path:string){
     const headers = this.retornarHeader();
