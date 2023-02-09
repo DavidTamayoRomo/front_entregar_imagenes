@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,16 @@ import { ImagenesComponent } from './pages/imagen/imagenes/imagenes.component';
 import { ImagenPipe } from './pipe/imagen.pipe';
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
 import { FuncionariosComponent } from './pages/funcionario/funcionarios/funcionarios.component';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { KeycloakGuard } from './auth/keycloak-auth.guard';
+import { KeycloakAuthService } from './auth/keycloak-auth.service';
+import { initializeKeycloak } from './auth/keycloack-init';
+
+//Keycloack
+/*import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
+import { initializeKeycloak } from './modules/auth/keycloack/keycloack-init';
+import { KeycloakGuard } from './core/helpers/keycloak-auth.guard';
+import { KeycloakAuthService } from './core/helpers/keycloak-auth.service';*/
 
 
 @NgModule({
@@ -46,9 +56,19 @@ import { FuncionariosComponent } from './pages/funcionario/funcionarios/funciona
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    KeycloakAngularModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService],
+    },
+    KeycloakGuard,
+    KeycloakAuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

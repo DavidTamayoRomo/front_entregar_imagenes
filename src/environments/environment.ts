@@ -2,12 +2,24 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { KeycloakConfig } from "keycloak-js";
+
+
+const keycloakConfig: KeycloakConfig = {
+  url: 'https://sso-poc.quito.gob.ec:8443/auth/',
+  realm: 'Municipales',
+  clientId: 'angular-artes',
+};
+
 export const environment = {
   production: false,
   url: "http://localhost:4200",
-  base_url: "http://localhost:3000/api",
-  url_wso2: "https://sso-poc.quito.gob.ec:9443"
-  
+  base_url: "http://localhost:5050/api",
+  url_wso2: "https://sso-poc.quito.gob.ec:9443",
+
+  keycloakConfig,
+  redirectUrl: 'http://localhost:4200/dashboard',
+  redirectUri: 'http://localhost:4200/dashboard',
 };
 
 /*

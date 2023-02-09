@@ -16,7 +16,8 @@ export class UtilsService {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'token1': `${token}`
     });
     return headers;
   }

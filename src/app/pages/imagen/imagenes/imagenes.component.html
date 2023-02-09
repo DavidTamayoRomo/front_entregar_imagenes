@@ -42,10 +42,24 @@
                         <button (click)="paginar(-10)" class="btn btn-secondary">Anterior</button>
                         &nbsp;
                         <button (click)="paginar(10)" class="btn btn-secondary">Siguiente</button>
+                        
+                    </div>
+                    <div class="row" *ngIf="botonActualizar">
+                        <div class="col-12"></div>
+                        <div class="col-6"> 
+                            <button type="button" class="btn btn-block btn-outline-success"
+                            (click)="actualizar(true)">Activar imagenes seleccionadas</button>
+                        </div>
+                        <div class="col-6"> 
+                            <button type="button" class="btn btn-block btn-outline-danger"
+                            (click)="actualizar(false)">Desactivar imagenes seleccionadas</button>
+                        </div>
+                        <div class="col-12"></div>
                     </div>
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
+                                <th ></th>
                                 <th class="w100">Imagen</th>
                                 <th class="w100">Decripcion</th>
                                 <th class="w100">Orgranización</th>
@@ -56,8 +70,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let imagen of imagenes">
-
+                            <tr *ngFor="let imagen of imagenes;let index=index">
+                                <td>
+                                    <div class="demo-checkbox" >
+                                        <input type="checkbox" [id]="'checkbox'+index" class="filled-in" (click)="seleccionar(imagen)" />
+                                        <label [for]="'checkbox'+index" ></label>
+                                    </div>
+                                </td>
                                 <td>
                                     <img [src]="imagen?.imagen | imagen | async" height="130px">
                                 </td>

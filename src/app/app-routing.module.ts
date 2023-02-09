@@ -9,12 +9,15 @@ import { ImagenComponent } from './pages/imagen/imagen.component';
 import { ImagenesComponent } from './pages/imagen/imagenes/imagenes.component';
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
 import { FuncionariosComponent } from './pages/funcionario/funcionarios/funcionarios.component';
+import { KeycloakGuard } from './auth/keycloak-auth.guard';
 
 const routes: Routes = [
   /**Rutas protegidas */
+ 
   {
     path:'', 
     component:PagesComponent,
+    canActivate: [KeycloakGuard],
     children:[
       /**Rutas que necesitan autenticacion */
       {path:'dashboard', component:DashboardComponent},
@@ -31,7 +34,6 @@ const routes: Routes = [
   
   /**Rutas publicas */
   {path:'login', component:LoginComponent},
-  {path:'register', component:ResgisterComponent},
 
   /**Redirecciones */
   {path:'**', component: NopagefoundComponent},

@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FrontEnd-Jetmind": {
+    "MDMQ-ARTES-FRONT-END": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/FrontEnd-Jetmind",
+            "outputPath": "dist/MDMQ-ARTES-FRONT-END",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "FrontEnd-Jetmind:build:production"
+              "browserTarget": "MDMQ-ARTES-FRONT-END:build:production"
             },
             "development": {
-              "browserTarget": "FrontEnd-Jetmind:build:development"
+              "browserTarget": "MDMQ-ARTES-FRONT-END:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FrontEnd-Jetmind:build"
+            "browserTarget": "MDMQ-ARTES-FRONT-END:build"
           }
         },
         "test": {
@@ -105,5 +105,5 @@
       }
     }
   },
-  "defaultProject": "FrontEnd-Jetmind"
+  "defaultProject": "MDMQ-ARTES-FRONT-END"
 }
