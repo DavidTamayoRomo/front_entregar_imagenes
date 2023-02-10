@@ -16,6 +16,16 @@
                 <input type="text" class="form-control" placeholder="Buscar imagen" (keyup)="buscar(txtBusqueda.value)"
                     #txtBusqueda>
 
+                <div class="row">
+                    <div class="col-1">
+                        <input type="checkbox" id="md_checkbox_20" class="chk-col-black" checked="" (click)="parametroBusqueda('Activos')">
+                        <label for="md_checkbox_20">Activos</label>
+                    </div>
+                    <div class="col-1">
+                        <input type="checkbox" id="md_checkbox_21" class="chk-col-black" checked="" (click)="parametroBusqueda('Inactivos')">
+                        <label for="md_checkbox_21">Inactivos</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -42,24 +52,24 @@
                         <button (click)="paginar(-10)" class="btn btn-secondary">Anterior</button>
                         &nbsp;
                         <button (click)="paginar(10)" class="btn btn-secondary">Siguiente</button>
-                        
+
                     </div>
                     <div class="row" *ngIf="botonActualizar">
                         <div class="col-12"></div>
-                        <div class="col-6"> 
+                        <div class="col-6">
                             <button type="button" class="btn btn-block btn-outline-success"
-                            (click)="actualizar(true)">Activar imagenes seleccionadas</button>
+                                (click)="actualizar(true)">Activar imagenes seleccionadas</button>
                         </div>
-                        <div class="col-6"> 
+                        <div class="col-6">
                             <button type="button" class="btn btn-block btn-outline-danger"
-                            (click)="actualizar(false)">Desactivar imagenes seleccionadas</button>
+                                (click)="actualizar(false)">Desactivar imagenes seleccionadas</button>
                         </div>
                         <div class="col-12"></div>
                     </div>
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
-                                <th ></th>
+                                <th></th>
                                 <th class="w100">Imagen</th>
                                 <th class="w100">Decripcion</th>
                                 <th class="w100">Orgranización</th>
@@ -72,9 +82,10 @@
                         <tbody>
                             <tr *ngFor="let imagen of imagenes;let index=index">
                                 <td>
-                                    <div class="demo-checkbox" >
-                                        <input type="checkbox" [id]="'checkbox'+index" class="filled-in" (click)="seleccionar(imagen)" />
-                                        <label [for]="'checkbox'+index" ></label>
+                                    <div class="demo-checkbox">
+                                        <input type="checkbox" [id]="'checkbox'+index" class="filled-in"
+                                            (click)="seleccionar(imagen)" />
+                                        <label [for]="'checkbox'+index"></label>
                                     </div>
                                 </td>
                                 <td>
@@ -93,15 +104,15 @@
                                     </div>
                                 </td>
 
-                                
+
                                 <td>
                                     <button (click)="crearLinkImagen(imagen)" class="btn btn-secondary">
                                         <i class="ti-files"></i> Copiar
                                     </button>
                                 </td>
                                 <td class="text-nowrap">
-                                    <a (click)="editar(imagen)"  data-toggle="tooltip"
-                                        data-original-title="Editar"> <i class="ti-pencil"></i> </a>
+                                    <a (click)="editar(imagen)" data-toggle="tooltip" data-original-title="Editar"> <i
+                                            class="ti-pencil"></i> </a>
                                     <a data-toggle="tooltip" data-original-title="Borrar"
                                         (click)="borrarImagen(imagen)">
                                         <i class=" ti-trash"></i>

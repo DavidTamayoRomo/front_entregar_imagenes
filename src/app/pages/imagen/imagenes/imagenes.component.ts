@@ -24,8 +24,12 @@ export class ImagenesComponent implements OnInit {
   public desde: number = 0;
   public imagenes1: Imagen[] = [];
   public imagenesTemporales: Imagen[] = [];
-  public actualizarImagenes:any[] = [];
-  public botonActualizar:boolean = false;
+  public actualizarImagenes: any[] = [];
+  public botonActualizar: boolean = false;
+  public parametros: any[] = ['Activos', 'Inactivos'];
+
+  public activo: boolean = true;
+  public inactivo: boolean = true;
 
   constructor(
     private imagenService: ImagenService,
@@ -36,13 +40,13 @@ export class ImagenesComponent implements OnInit {
 
   ngOnInit(): void {
     this.wso2Service.getToken().subscribe();
-    this.cargarImagenes();
+    this.cargarImagenes(true, true);
   }
 
 
-  cargarImagenes() {
+  cargarImagenes(activo:boolean, inactivo:boolean) {
     this.cargando = true;
-    this.imagenService.cargarImagenes(this.desde).subscribe((resp: any) => {
+    this.imagenService.cargarImagenes(this.desde, activo, inactivo).subscribe((resp: any) => {
       console.log(resp);
       this.cargando = false;
       this.imagenes = resp.data;
@@ -61,7 +65,7 @@ export class ImagenesComponent implements OnInit {
     } else if (this.desde > this.totalImagenes) {
       this.desde -= valor;
     }
-    this.cargarImagenes();
+    this.cargarImagenes(this.activo, this.inactivo);
   }
 
   buscar(busqueda: any) {
@@ -88,7 +92,7 @@ export class ImagenesComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.imagenService.eliminarImagen(Imagen).subscribe(resp => {
-          this.cargarImagenes();
+          this.cargarImagenes(this.activo, this.inactivo);
           Swal.fire(
             'Borrado!',
             `${Imagen.nombre} a sido eliminada con éxito.`,
@@ -124,7 +128,7 @@ export class ImagenesComponent implements OnInit {
         `Imagen actualizada con éxito.`,
         'success'
       );
-      this.cargarImagenes();
+      this.cargarImagenes(this.activo, this.inactivo);
     });
   }
 
@@ -163,20 +167,20 @@ export class ImagenesComponent implements OnInit {
 
   async seleccionar(imagen: any) {
     this.botonActualizar = true;
-    if(this.actualizarImagenes.length == 0){
+    if (this.actualizarImagenes.length == 0) {
       this.actualizarImagenes.push(imagen._id);
-    }else{
+    } else {
       const found = await this.actualizarImagenes.find(element => element === imagen._id);
-      if(found){
+      if (found) {
         this.actualizarImagenes = this.actualizarImagenes.filter((element) => element !== imagen._id);
-        if(this.actualizarImagenes.length == 0) this.botonActualizar = false;
-      }else{
+        if (this.actualizarImagenes.length == 0) this.botonActualizar = false;
+      } else {
         this.actualizarImagenes.push(imagen._id);
       }
     }
   }
 
-  actualizar(valor:boolean){
+  actualizar(valor: boolean) {
     //swal de confirmacion
     Swal.fire({
       title: 'Desea actualizar las imagenes ?',
@@ -187,17 +191,17 @@ export class ImagenesComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.actualizarImagenes.map((element) => {
-          this.imagenService.obtenerImagenById(element).subscribe((resp:any) => {
+          this.imagenService.obtenerImagenById(element).subscribe((resp: any) => {
             resp.data.estado = valor;
             this.imagenService.updateImagen(resp.data._id, resp.data).subscribe(resp => {
               this.actualizarImagenes = this.actualizarImagenes.filter((element1) => element1 !== element);
-              if(this.actualizarImagenes.length == 0) this.botonActualizar = false;
+              if (this.actualizarImagenes.length == 0) this.botonActualizar = false;
               Swal.fire(
                 'Actualizado!',
                 `Imagenes actualizada con éxito.`,
                 'success'
               );
-              this.cargarImagenes();
+              this.cargarImagenes(this.activo, this.inactivo);
             });
           });
         });
@@ -205,7 +209,34 @@ export class ImagenesComponent implements OnInit {
     });
 
 
-    
+
   }
 
+
+  async parametroBusqueda(valor: any) {
+    this.activo = false;
+    this.inactivo = false;
+
+    const found = await this.parametros.find(element => element === valor);
+    if (found) {
+      this.parametros = this.parametros.filter((element) => element !== valor);
+    } else {
+      this.parametros.push(valor);
+    }
+
+    const activo = await this.parametros.find(element => element === 'Activos');
+    const inactivo = await this.parametros.find(element => element === 'Inactivos');
+    if (activo) this.activo = true;
+    if (inactivo) this.inactivo = true;
+    console.log('Parametros: ', this.parametros);
+    console.log('Activo: ', this.activo);
+    console.log('Inactivo: ', this.inactivo);
+
+    this.cargarImagenes(this.activo, this.inactivo);
+  }
+
+
+
 }
+
+

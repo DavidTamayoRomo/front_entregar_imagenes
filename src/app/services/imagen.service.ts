@@ -63,9 +63,11 @@ export class ImagenService {
   }
 
 
-  cargarImagenes (skip: number = 0){
+  cargarImagenes (skip: number = 0, activo:any, inactivo:any){
     const headers = this.retornarHeader();
-    return this.http.get(`${base_url}/imagen?skip=${skip}`, { headers: headers })
+    console.log('AC',activo)
+    console.log('IN',activo)
+    return this.http.get(`${base_url}/imagen?skip=${skip}&activo=${activo}&inactivo=${inactivo}`, { headers: headers })
     .pipe(
       tap( (resp:any) => {
         const Imagenes = resp.data.map((imagen:any) => new Imagen(imagen._id, imagen.nombre, imagen.email, imagen.estado, 'S/N')
