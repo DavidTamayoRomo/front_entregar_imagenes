@@ -10,7 +10,7 @@ const keycloakConfig: KeycloakConfig = {
 export const environment = {
   production: true,
   url: "https://sso-poc.quito.gob.ec:4343",
-  base_url: "http://172.22.4.106:5050/api",
+  base_url: "https://172.22.4.106:5043/api",
   url_wso2: "https://sso-poc.quito.gob.ec:9443",
 
   keycloakConfig,
