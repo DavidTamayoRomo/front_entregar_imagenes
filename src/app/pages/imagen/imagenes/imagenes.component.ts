@@ -130,7 +130,9 @@ export class ImagenesComponent implements OnInit {
 
   crearLinkImagen(imagen: any) {
     try {
+      console.log('Base URL:', base_url)
       let url = `${base_url}/imagen/devolverImagen/secretaria/${imagen.path}`;
+      console.log('Error URL:', url);
       navigator.clipboard.writeText(url);
       Swal.fire({
         position: 'top-end',
@@ -140,6 +142,7 @@ export class ImagenesComponent implements OnInit {
         timer: 900
       })
     } catch (error) {
+      console.log('Error Copiado:', error);
       Swal.fire({
         position: 'top-end',
         icon: 'error',
