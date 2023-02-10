@@ -13,9 +13,20 @@
                     </a>
                 </div>
                 <div style="height: 10px;"></div>
-                <input type="text" class="form-control" placeholder="Buscar funcionario" (keyup)="buscar(txtBusqueda.value)"
-                    #txtBusqueda>
-
+                <input type="text" class="form-control" placeholder="Buscar funcionario"
+                    (keyup)="buscar(txtBusqueda.value)" #txtBusqueda>
+                <div class="row">
+                    <div class="col-1">
+                        <input type="checkbox" id="md_checkbox_20" class="chk-col-black" checked=""
+                            (click)="parametroBusqueda('Activos')">
+                        <label for="md_checkbox_20">Activos</label>
+                    </div>
+                    <div class="col-1">
+                        <input type="checkbox" id="md_checkbox_21" class="chk-col-black" checked=""
+                            (click)="parametroBusqueda('Inactivos')">
+                        <label for="md_checkbox_21">Inactivos</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -36,16 +47,29 @@
             <div class="card-body">
                 <h4 class="card-title">Funcionario registrados</h4>
                 <h6 class="card-subtitle">Lista de todos los funcionarios existentes en el sistema</h6>
-                <h6 class="card-subtitle">Total de imagenes: {{totalfuncionarios}}</h6>
+                <h6 class="card-subtitle">Total de funcionarios: {{totalfuncionarios}}</h6>
                 <div class="table-responsive">
                     <div *ngIf="txtBusqueda.value.length === 0">
                         <button (click)="paginar(-10)" class="btn btn-secondary">Anterior</button>
                         &nbsp;
                         <button (click)="paginar(10)" class="btn btn-secondary">Siguiente</button>
                     </div>
+                    <div class="row" *ngIf="botonActualizar">
+                        <div class="col-12"></div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-block btn-outline-success"
+                                (click)="actualizar(true)">Activar funcionarios seleccionadas</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-block btn-outline-danger"
+                                (click)="actualizar(false)">Desactivar funcionarios seleccionadas</button>
+                        </div>
+                        <div class="col-12"></div>
+                    </div>
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th class="w100">Imagen</th>
                                 <th class="w100">Cargo</th>
                                 <th class="w100">Nombres</th>
@@ -59,7 +83,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let funcionario of funcionarios">
+                            <tr *ngFor="let funcionario of funcionarios; let index=index">
+                                <td>
+                                    <div class="demo-checkbox">
+                                        <input type="checkbox" [id]="'checkbox'+index" class="filled-in"
+                                            (click)="seleccionar(funcionario)" />
+                                        <label [for]="'checkbox'+index"></label>
+                                    </div>
+                                </td>
                                 <td (click)="copiarImagen(funcionario)">
                                     <img [src]="funcionario?.imagen | imagen | async" height="130px">
                                 </td>
@@ -84,7 +115,7 @@
                                         <i class="ti-files"></i> Copiar
                                     </button>
                                 </td>
-                            
+
                                 <td class="text-nowrap">
                                     <a [routerLink]="['/funcionario',funcionario._id]" data-toggle="tooltip"
                                         data-original-title="Editar"> <i class="ti-pencil"></i> </a>

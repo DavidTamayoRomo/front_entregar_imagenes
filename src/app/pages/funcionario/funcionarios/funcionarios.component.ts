@@ -24,6 +24,13 @@ export class FuncionariosComponent implements OnInit {
   public funcionarios1:Funcionario [] = [];
   public funcionariosTemporales:Funcionario [] = [];
 
+  public actualizarImagenes: any[] = [];
+  public botonActualizar: boolean = false;
+  public parametros: any[] = ['Activos', 'Inactivos'];
+
+  public activo: boolean = true;
+  public inactivo: boolean = true;
+
   constructor(
     private funcionarioService:FuncionarioService,
     private wso2Service:Wso2Service,
@@ -31,13 +38,13 @@ export class FuncionariosComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.cargarfuncionarios();
+    this.cargarfuncionarios(true, true);
     this.wso2Service.getToken().subscribe();
   }
 
-  cargarfuncionarios(){
+  cargarfuncionarios(activo:boolean, inactivo:boolean){
     this.cargando=true;
-    this.funcionarioService.cargarFuncionarios(this.desde).subscribe((resp:any)=>{
+    this.funcionarioService.cargarFuncionarios(this.desde, activo, inactivo).subscribe((resp:any)=>{
       console.log(resp);
       this.cargando=false;
       this.funcionarios = resp.data;
@@ -56,7 +63,7 @@ export class FuncionariosComponent implements OnInit {
     }else if(this.desde> this.totalfuncionarios){
       this.desde -= valor;  
     }
-    this.cargarfuncionarios();
+    this.cargarfuncionarios(this.activo, this.inactivo);
   }
 
   buscar(busqueda:any){
@@ -84,7 +91,7 @@ export class FuncionariosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.funcionarioService.eliminarFuncionario(funcionario).subscribe(resp => {
-          this.cargarfuncionarios();
+          this.cargarfuncionarios(this.activo, this.inactivo);
           Swal.fire(
             'Borrado!',
             `A sido eliminada con éxito.`,
@@ -138,6 +145,78 @@ export class FuncionariosComponent implements OnInit {
       showConfirmButton: false,
       timer: 900
     })
+  }
+
+
+
+  actualizar(valor: boolean) {
+    //swal de confirmacion
+    Swal.fire({
+      title: 'Desea actualizar los funcionarios seleccionados ?',
+      text: `Esta a punto de actualizar los funcionarios seleccionadas`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, actualizar los funcionarios'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.actualizarImagenes.map((element) => {
+          this.funcionarioService.obtenerFuncionarioById(element).subscribe((resp: any) => {
+            resp.data.estado = valor;
+            this.funcionarioService.updateFuncionario(resp.data._id, resp.data).subscribe(resp => {
+              this.actualizarImagenes = this.actualizarImagenes.filter((element1) => element1 !== element);
+              if (this.actualizarImagenes.length == 0) this.botonActualizar = false;
+              Swal.fire(
+                'Actualizado!',
+                `Funcionarios actualizados con éxito.`,
+                'success'
+              );
+              this.cargarfuncionarios(this.activo, this.inactivo);
+            });
+          });
+        });
+      }
+    });
+
+
+
+  }
+
+
+  async parametroBusqueda(valor: any) {
+    this.activo = false;
+    this.inactivo = false;
+
+    const found = await this.parametros.find(element => element === valor);
+    if (found) {
+      this.parametros = this.parametros.filter((element) => element !== valor);
+    } else {
+      this.parametros.push(valor);
+    }
+
+    const activo = await this.parametros.find(element => element === 'Activos');
+    const inactivo = await this.parametros.find(element => element === 'Inactivos');
+    if (activo) this.activo = true;
+    if (inactivo) this.inactivo = true;
+    console.log('Parametros: ', this.parametros);
+    console.log('Activo: ', this.activo);
+    console.log('Inactivo: ', this.inactivo);
+
+    this.cargarfuncionarios(this.activo, this.inactivo);
+  }
+
+  async seleccionar(imagen: any) {
+    this.botonActualizar = true;
+    if (this.actualizarImagenes.length == 0) {
+      this.actualizarImagenes.push(imagen._id);
+    } else {
+      const found = await this.actualizarImagenes.find(element => element === imagen._id);
+      if (found) {
+        this.actualizarImagenes = this.actualizarImagenes.filter((element) => element !== imagen._id);
+        if (this.actualizarImagenes.length == 0) this.botonActualizar = false;
+      } else {
+        this.actualizarImagenes.push(imagen._id);
+      }
+    }
   }
 
 }

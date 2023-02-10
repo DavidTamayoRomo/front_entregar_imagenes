@@ -52,9 +52,9 @@ export class FuncionarioService {
   }
 
 
-  cargarFuncionarios (skip: number = 0){
+  cargarFuncionarios (skip: number = 0, activo:any, inactivo:any){
     const headers = this.retornarHeader();
-    return this.http.get(`${base_url}/funcionario?skip=${skip}`, { headers: headers })
+    return this.http.get(`${base_url}/funcionario?skip=${skip}&activo=${activo}&inactivo=${inactivo}`, { headers: headers })
     .pipe(
       tap( (resp:any) => {
         const funcionarios = resp.data.map((funcionario:any) => new Funcionario(funcionario._id, funcionario.cargo, funcionario.nombres, funcionario.apellidos
