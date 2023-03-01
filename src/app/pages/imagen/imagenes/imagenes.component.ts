@@ -27,6 +27,7 @@ export class ImagenesComponent implements OnInit {
   public actualizarImagenes: any[] = [];
   public botonActualizar: boolean = false;
   public parametros: any[] = ['Activos', 'Inactivos'];
+  public mostraModal: boolean = true;
 
   public activo: boolean = true;
   public inactivo: boolean = true;
@@ -44,7 +45,7 @@ export class ImagenesComponent implements OnInit {
   }
 
 
-  cargarImagenes(activo:boolean, inactivo:boolean) {
+  cargarImagenes(activo: boolean, inactivo: boolean) {
     this.cargando = true;
     this.imagenService.cargarImagenes(this.desde, activo, inactivo).subscribe((resp: any) => {
       console.log(resp);
@@ -161,8 +162,8 @@ export class ImagenesComponent implements OnInit {
 
   editar(imagen: any) {
     //this.router.navigate(['/imagen/',imagen._id]);
-    //this.router.navigate(['/imagen'], { state: {data: imagen._id} });
-    document.location.href = `${url}/imagen/${imagen._id}`;
+    this.router.navigate(['/imagen'], { state: { data: imagen._id } });
+    //document.location.href = `${url}/imagen/${imagen._id}`;
   }
 
   async seleccionar(imagen: any) {
@@ -214,6 +215,10 @@ export class ImagenesComponent implements OnInit {
 
 
   async parametroBusqueda(valor: any) {
+
+    this.actualizarImagenes = [];
+    this.botonActualizar = false;
+
     this.activo = false;
     this.inactivo = false;
 
@@ -236,6 +241,30 @@ export class ImagenesComponent implements OnInit {
   }
 
 
+
+  cerrarModal() {
+    this.mostraModal = true;
+  }
+
+  mostrarDatosModal(cita: any) {
+    this.mostraModal = false;
+
+
+  }
+
+  imageObject: Array<object> = [/* {
+    image: 'assets/img/slider/1.jpg',
+    thumbImage: 'assets/img/slider/1_min.jpeg',
+    alt: 'alt of image',
+    title: 'title of image'
+  }, {
+    image: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
+    thumbImage: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
+    title: 'Image title', //Optional: You can use this key if want to show image with title
+    alt: 'Image alt', //Optional: You can use this key if want to show image with alt
+    order: 1 //Optional: if you pass this key then slider images will be arrange according @input: slideOrderType
+  } */
+  ];
 
 }
 

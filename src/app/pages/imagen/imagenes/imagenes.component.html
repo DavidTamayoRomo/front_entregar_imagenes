@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <a class="btn btn-primary" routerLink="/imagen/nuevo">
+                    <a class="btn btn-primary" routerLink="/imagen">
                         <i class="mdi mdi-account-plus"></i>
                         Crear Imagen
                     </a>
@@ -88,8 +88,8 @@
                                         <label [for]="'checkbox'+index"></label>
                                     </div>
                                 </td>
-                                <td>
-                                    <img [src]="imagen?.imagen | imagen | async" height="130px">
+                                <td >
+                                    <img [src]="imagen?.imagen | imagen | async" height="130px" width="50%">
                                 </td>
                                 <td>{{imagen.descripcion}}</td>
                                 <td>{{imagen.tipo}}</td>
@@ -134,3 +134,34 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="mostraModal">
+    <div id="responsive-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        style="display: block;padding-right: 17px; overflow-y: initial;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Datos</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        (click)="cerrarModal()">×</button>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Acciones</h4>
+                    <h6 class="card-subtitle"></h6>
+                    <div class="row button-group">
+                        
+                    </div>
+                    <div class="row p-t-20">
+                        <div class="col-md-12">
+                            <!-- <ng-image-slider [images]="imageObject" #nav></ng-image-slider> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

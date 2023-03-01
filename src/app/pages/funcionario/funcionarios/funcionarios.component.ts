@@ -183,6 +183,9 @@ export class FuncionariosComponent implements OnInit {
 
 
   async parametroBusqueda(valor: any) {
+    this.actualizarImagenes = [];
+    this.botonActualizar = false;
+    
     this.activo = false;
     this.inactivo = false;
 

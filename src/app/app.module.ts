@@ -57,7 +57,7 @@ import { KeycloakAuthService } from './core/helpers/keycloak-auth.service';*/
     FormsModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
   ],
   providers: [
     {
