@@ -164,7 +164,7 @@ export class FuncionarioComponent implements OnInit {
           //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
           Toast.fire({
             icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+            title: 'ERROR: ' + err.error.statusCode + '\n Recargue la página e intente nuevamente '
           })
         });
       }

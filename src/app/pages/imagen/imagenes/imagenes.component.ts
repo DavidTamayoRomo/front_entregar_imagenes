@@ -83,10 +83,10 @@ export class ImagenesComponent implements OnInit {
 
 
   borrarImagen(Imagen: any) {
-
+    console.log(Imagen);
     Swal.fire({
       title: 'Desea eliminar la Imagen ?',
-      text: `Esta a punto de borrar a ${Imagen.nombre}`,
+      text: `Esta a punto de borrar a ${Imagen.path}`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, borrar esta Imagen'
@@ -96,7 +96,7 @@ export class ImagenesComponent implements OnInit {
           this.cargarImagenes(this.activo, this.inactivo);
           Swal.fire(
             'Borrado!',
-            `${Imagen.nombre} a sido eliminada con éxito.`,
+            `${Imagen.path} a sido eliminada con éxito.`,
             'success'
           )
         });

@@ -33,11 +33,11 @@ export class ImagenComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('DATOS ENVIADOS',this.activatedRoute.snapshot.params);
+    console.log('DATOS ENVIADOS', this.activatedRoute.snapshot.params);
     console.log('DATOS ENVIADOS', history.state.data);
 
     this.wso2Service.getToken().subscribe();
-    
+
     this.cargarImagenbyId(history.state.data);
   }
 
@@ -160,7 +160,7 @@ export class ImagenComponent implements OnInit {
           //TODO: Mostrar error cuando es administrador. Dato que muestra el error completo=  err.error.message
           Toast.fire({
             icon: 'error',
-            title: 'ERROR: ' + err.error.statusCode + '\nContactese con su proveedor de software '
+            title: 'ERROR: ' + err.error.statusCode + '\nRecargue la página e intente nuevamente '
           })
         });
       }
@@ -180,34 +180,61 @@ export class ImagenComponent implements OnInit {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Aceptar!'
           }).then((result) => {
+            if (result.isConfirmed) {
+              this.registerForm.value.imagen = this.files1;
+              this.registerForm.value.fileBase64 = this.files1;
+              this.registerForm.value.nombreImagen = this.nombreImagen;
+              console.log(this.registerForm.value);
+              this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Se creo correctamente'
+                })
+                console.log(resp);
+                this.router.navigateByUrl('/imagenes');
+              }, (err: any) => { });
+            }
 
           });
+        } else {
+          this.registerForm.value.imagen = this.files1;
+          this.registerForm.value.fileBase64 = this.files1;
+          this.registerForm.value.nombreImagen = this.nombreImagen;
+          console.log(this.registerForm.value);
+          this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'success',
+              title: 'Se creo correctamente'
+            })
+            console.log(resp);
+            this.router.navigateByUrl('/imagenes');
+          }, (err: any) => { });
         }
       });
 
-      this.registerForm.value.imagen = this.files1;
-      this.registerForm.value.fileBase64 = this.files1;
-      this.registerForm.value.nombreImagen = this.nombreImagen;
-      console.log(this.registerForm.value);
-      this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        Toast.fire({
-          icon: 'success',
-          title: 'Se creo correctamente'
-        })
-        console.log(resp);
-        this.router.navigateByUrl('/imagenes');
-      }, (err: any) => { });
+
     }
 
 
