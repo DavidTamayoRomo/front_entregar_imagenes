@@ -168,7 +168,8 @@ export class ImagenComponent implements OnInit {
       //crear
 
       this.imagenService.obtenerImagenByPath(this.registerForm.value.path).subscribe((resp: any) => {
-        if (resp) {
+        console.log(resp);
+        if (resp.data.length > 0) {
           console.log(resp, 'El path ya existe');
           //swal de confirmacion
           Swal.fire({
