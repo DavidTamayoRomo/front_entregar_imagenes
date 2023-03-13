@@ -17,7 +17,9 @@ export class ImagenComponent implements OnInit {
   public imagenSeleccionada: any;
   public files: any = null;
   public files1: any = null;
+  public files2: any = null;
   public nombreImagen: any = null;
+  public nombreImagen2: any = null;
 
   ImagenModel = new Imagen();
 
@@ -113,10 +115,13 @@ export class ImagenComponent implements OnInit {
         return;
       } else {
 
-        this.registerForm.value.imagen = this.files1;
+        //this.registerForm.value.imagen = this.files1;
         this.registerForm.value.fileBase64 = this.files1;
         this.registerForm.value.nombreImagen = this.nombreImagen;
-
+        this.registerForm.value.imagen = this.imagenSeleccionada.imagen;
+        this.registerForm.value.nombreImagen2 = this.nombreImagen2;
+        this.registerForm.value.fileBase64_1 = this.files2;
+        this.registerForm.value.imagenReducida = this.imagenSeleccionada.imagenReducida;
         let fechas = this.imagenSeleccionada.fechasActualizacion;
         if (fechas === null) {
           fechas = [];
@@ -182,9 +187,17 @@ export class ImagenComponent implements OnInit {
             confirmButtonText: 'Si, Aceptar!'
           }).then((result) => {
             if (result.isConfirmed) {
+              resp.data.map((item: any) => {
+                item.estado = false;
+                this.imagenService.updateImagen(item._id, item).subscribe((resp: any) => {
+                  console.log(resp);
+                });
+              });
               this.registerForm.value.imagen = this.files1;
               this.registerForm.value.fileBase64 = this.files1;
+              this.registerForm.value.fileBase64_1 = this.files2;
               this.registerForm.value.nombreImagen = this.nombreImagen;
+              this.registerForm.value.nombreImagen2 = this.nombreImagen2;
               console.log(this.registerForm.value);
               this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
                 const Toast = Swal.mixin({
@@ -211,7 +224,9 @@ export class ImagenComponent implements OnInit {
         } else {
           this.registerForm.value.imagen = this.files1;
           this.registerForm.value.fileBase64 = this.files1;
+          this.registerForm.value.fileBase64_1 = this.files2;
           this.registerForm.value.nombreImagen = this.nombreImagen;
+          this.registerForm.value.nombreImagen2 = this.nombreImagen2;
           console.log(this.registerForm.value);
           this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
             const Toast = Swal.mixin({
@@ -263,6 +278,23 @@ export class ImagenComponent implements OnInit {
 
   onRemove(event: any) {
     this.files = [];
+  }
+
+  onSelectReducida(event: any) {
+    let imgTemp: any;
+    this.files2 = [event.addedFiles[0]];
+    this.nombreImagen2 = event.addedFiles[0].name;
+    const reader = new FileReader();
+    const url64 = reader.readAsDataURL(event.addedFiles[0]);
+    reader.onloadend = () => {
+      imgTemp = reader.result;
+      this.files2 = imgTemp.split(',')[1];
+      console.log(this.files2);
+    }
+  }
+
+  onRemoveReducida(event: any) {
+    this.files2 = [];
   }
 
 }

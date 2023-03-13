@@ -46,14 +46,30 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <ngx-dropzone (change)="onSelect($event)">
-                    <ngx-dropzone-label>Arrastrar aqui o hacer click</ngx-dropzone-label>
-                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                    </ngx-dropzone-preview>
-                </ngx-dropzone>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <ngx-dropzone (change)="onSelect($event)">
+                            <ngx-dropzone-label>Arrastrar aqui o hacer click (IMAGEN TAMAÑO COMPLETO)</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <ngx-dropzone (change)="onSelectReducida($event)">
+                            <ngx-dropzone-label>Arrastrar aqui o hacer click (IMAGEN PEQUEÑA)</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files2" [removable]="true" (removed)="onRemoveReducida(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                </div>
             </div>
+
+            
 
 
 

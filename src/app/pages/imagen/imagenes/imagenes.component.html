@@ -82,14 +82,14 @@
                         <tbody>
                             <tr *ngFor="let imagen of imagenes;let index=index">
                                 <td>
-                                    <div class="demo-checkbox">
+                                    <div class="demo-checkbox" width="10px">
                                         <input type="checkbox" [id]="'checkbox'+index" class="filled-in"
                                             (click)="seleccionar(imagen)" />
                                         <label [for]="'checkbox'+index"></label>
                                     </div>
                                 </td>
                                 <td >
-                                    <img [src]="imagen?.imagen | imagen | async" height="130px" width="50%">
+                                    <img [src]="imagen?.imagenReducida | imagen | async" width="150px">
                                 </td>
                                 <td>{{imagen.descripcion}}</td>
                                 <td>{{imagen.tipo}}</td>

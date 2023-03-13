@@ -5,6 +5,7 @@ export class Imagen {
         public descripcion?:string,
         public estado?:boolean,
         public imagen?:string,
+        public imagenReducida?:string,
         public path?:string,
         public nombreImagen?:string,
         public fileBase64?:string,
