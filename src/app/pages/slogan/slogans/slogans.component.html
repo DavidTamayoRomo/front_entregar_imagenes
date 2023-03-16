@@ -7,9 +7,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-right">
-                    <a class="btn btn-primary" routerLink="/funcionario/nuevo">
+                    <a class="btn btn-primary" routerLink="/slogan/nuevo">
                         <i class="mdi mdi-account-plus"></i>
-                        Crear funcionario
+                        Crear Slogan
                     </a>
                 </div>
                 <div style="height: 10px;"></div>
@@ -45,9 +45,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Funcionario registrados</h4>
-                <h6 class="card-subtitle">Lista de todos los funcionarios existentes en el sistema</h6>
-                <h6 class="card-subtitle">Total de funcionarios: {{totalfuncionarios}}</h6>
+                <h4 class="card-title">Slogan registrados</h4>
+                <h6 class="card-subtitle">Lista de todos los slogans existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de slogans: {{totalslogans}}</h6>
                 <div class="table-responsive">
                     <div *ngIf="txtBusqueda.value.length === 0">
                         <button (click)="paginar(-10)" class="btn btn-secondary">Anterior</button>
@@ -58,11 +58,11 @@
                         <div class="col-12"></div>
                         <div class="col-6">
                             <button type="button" class="btn btn-block btn-outline-success"
-                                (click)="actualizar(true)">Activar funcionarios seleccionadas</button>
+                                (click)="actualizar(true)">Activar slogans seleccionadas</button>
                         </div>
                         <div class="col-6">
                             <button type="button" class="btn btn-block btn-outline-danger"
-                                (click)="actualizar(false)">Desactivar funcionarios seleccionadas</button>
+                                (click)="actualizar(false)">Desactivar slogans seleccionadas</button>
                         </div>
                         <div class="col-12"></div>
                     </div>
@@ -70,57 +70,53 @@
                         <thead>
                             <tr>
                                 <th></th>
+                                <th></th>
                                 <th class="w100">Imagen</th>
-                                <th class="w100">Cargo</th>
-                                <th class="w100">Nombres</th>
-                                <th class="w100">Apellidos</th>
                                 <th class="w100">Titulo</th>
                                 <th class="w100">Descripcion</th>
-                                <th class="text-nowrap w100">Fecha Nacimiento</th>
-                                <th class="text-nowrap w100">Estado</th>
-                                <th class="text-nowrap w100">Copiar</th>
+                                <th class="w100">Path</th>
+                                <th class="w100">Estado</th>
+                                <th class="w100">Copiar</th>
                                 <th class="text-nowrap w100">Accion</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let funcionario of funcionarios; let index=index">
+                            <tr *ngFor="let slogan of slogans; let index=index">
                                 <td>
                                     <div class="demo-checkbox">
                                         <input type="checkbox" [id]="'checkbox'+index" class="filled-in"
-                                            (click)="seleccionar(funcionario)" />
+                                            (click)="seleccionar(slogan)" />
                                         <label [for]="'checkbox'+index"></label>
                                     </div>
                                 </td>
-                                <td (click)="copiarImagen(funcionario)">
-                                    <img [src]="funcionario?.imagen | imagen | async" width="130px">
+                                <td (click)="copiarImagen(slogan)">
+                                    <img [src]="slogan?.imagen | imagen | async" width="130px">
                                 </td>
-                                <td>{{funcionario.cargo}}</td>
-                                <td>{{funcionario.nombres}}</td>
-                                <td>{{funcionario.apellidos}}</td>
-                                <td>{{funcionario.titulo}}</td>
-                                <td>{{funcionario.descripcion}}</td>
-                                <td>{{funcionario.fechaNacimiento | date:"yyyy-MM-dd"}}</td>
+                                <td>{{slogan.titulo}}</td>
+                                <td>{{slogan.descripcion}}</td>
+                                <td>{{slogan.path}}</td>
+                                <td>{{slogan.titulo}}</td>
                                 <td>
                                     <div class="switch">
                                         <label>
-                                            <input type="checkbox" [checked]="funcionario?.estado"
-                                                (click)="actualizarEstado(funcionario)"><span
+                                            <input type="checkbox" [checked]="slogan?.estado"
+                                                (click)="actualizarEstado(slogan)"><span
                                                 class="lever switch-col-cyan"></span>
                                         </label>
                                     </div>
                                 </td>
 
                                 <td>
-                                    <button (click)="crearLink(funcionario)" class="btn btn-secondary">
+                                    <button (click)="crearLink(slogan)" class="btn btn-secondary">
                                         <i class="ti-files"></i> Copiar
                                     </button>
                                 </td>
 
                                 <td class="text-nowrap">
-                                    <a [routerLink]="['/funcionario',funcionario._id]" data-toggle="tooltip"
+                                    <a [routerLink]="['/slogan',slogan._id]" data-toggle="tooltip"
                                         data-original-title="Editar"> <i class="ti-pencil"></i> </a>
                                     <a data-toggle="tooltip" data-original-title="Borrar"
-                                        (click)="borrarfuncionario(funcionario)">
+                                        (click)="borrarSlogan(slogan)">
                                         <i class=" ti-trash"></i>
                                     </a>
                                 </td>

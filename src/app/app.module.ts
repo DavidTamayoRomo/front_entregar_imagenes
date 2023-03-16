@@ -25,6 +25,8 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { KeycloakGuard } from './auth/keycloak-auth.guard';
 import { KeycloakAuthService } from './auth/keycloak-auth.service';
 import { initializeKeycloak } from './auth/keycloack-init';
+import { SloganComponent } from './pages/slogan/slogan/slogan.component';
+import { SlogansComponent } from './pages/slogan/slogans/slogans.component';
 
 //Keycloack
 /*import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
@@ -48,7 +50,9 @@ import { KeycloakAuthService } from './core/helpers/keycloak-auth.service';*/
     ImagenesComponent,
     ImagenPipe,
     FuncionarioComponent,
-    FuncionariosComponent
+    FuncionariosComponent,
+    SloganComponent,
+    SlogansComponent
   ],
   imports: [
     BrowserModule,

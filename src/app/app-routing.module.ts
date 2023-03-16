@@ -10,6 +10,8 @@ import { ImagenesComponent } from './pages/imagen/imagenes/imagenes.component';
 import { FuncionarioComponent } from './pages/funcionario/funcionario.component';
 import { FuncionariosComponent } from './pages/funcionario/funcionarios/funcionarios.component';
 import { KeycloakGuard } from './auth/keycloak-auth.guard';
+import { SloganComponent } from './pages/slogan/slogan/slogan.component';
+import { SlogansComponent } from './pages/slogan/slogans/slogans.component';
 
 const routes: Routes = [
   /**Rutas protegidas */
@@ -27,6 +29,9 @@ const routes: Routes = [
       
       {path:'funcionario/:id', component:FuncionarioComponent},
       {path:'funcionarios', component:FuncionariosComponent},
+
+      {path:'slogan/:id', component:SloganComponent},
+      {path:'slogans', component:SlogansComponent},
 
       {path:'', redirectTo:'/dashboard', pathMatch:'full'},
     ]
