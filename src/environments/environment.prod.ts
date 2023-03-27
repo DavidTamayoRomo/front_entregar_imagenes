@@ -9,11 +9,11 @@ const keycloakConfig: KeycloakConfig = {
 
 export const environment = {
   production: true,
-  url: "https://sso-poc.quito.gob.ec:4343",
+  url: "https://sso-poc.quito.gob.ec:4943",
   base_url: "https://sso-poc.quito.gob.ec:5043/api",
   url_wso2: "https://sso-poc.quito.gob.ec:9443",
 
   keycloakConfig,
-  redirectUrl: 'https://sso-poc.quito.gob.ec:4343/dashboard',
-  redirectUri: 'https://sso-poc.quito.gob.ec:4343/dashboard',
+  redirectUrl: 'https://sso-poc.quito.gob.ec:4943/dashboard',
+  redirectUri: 'https://sso-poc.quito.gob.ec:4943/dashboard',
 };
