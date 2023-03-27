@@ -10,7 +10,7 @@ services:
       NODE_ENV: production
     ports:
       - 4300:80
-      - 4343:443
+      #- 4343:443
     restart: always
     volumes:
       - "./certs:/etc/nginx/certs"
