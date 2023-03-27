@@ -24,3 +24,4 @@ COPY --from=builder /app/dist/MDMQ-ARTES-FRONT-END .
 COPY default.conf /etc/nginx/conf.d/default.conf
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
