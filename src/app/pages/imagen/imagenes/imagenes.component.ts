@@ -241,6 +241,33 @@ export class ImagenesComponent implements OnInit {
   }
 
 
+  eliminarPermanente(){
+    Swal.fire({
+      title: 'Desea eliminar de forma permanente las imagenes seleccionadas?',
+      text: `Esta a punto de eliminar las imagenes seleccionadas`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, elimanar las imagenes de forma permanente'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.actualizarImagenes.map((element) => {
+          console.log('Elemento a eliminar: ',element);
+          this.imagenService.obtenerImagenById(element).subscribe((resp: any) => {
+            this.imagenService.eliminarImagen(resp.data).subscribe((resp: any) => {
+              this.cargarImagenes(this.activo, this.inactivo);
+              Swal.fire(
+                'Eliminado',
+                `Imagenes eliminadas con éxito.`,
+                'success'
+              );
+            });
+          });
+        });
+      }
+    });
+  }
+
+
 
   cerrarModal() {
     this.mostraModal = true;

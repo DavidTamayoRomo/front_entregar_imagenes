@@ -56,13 +56,17 @@
                     </div>
                     <div class="row" *ngIf="botonActualizar">
                         <div class="col-12"></div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-success"
                                 (click)="actualizar(true)">Activar slogans seleccionadas</button>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-danger"
                                 (click)="actualizar(false)">Desactivar slogans seleccionadas</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-block btn-outline-danger"
+                                (click)="eliminarPermanente()">Eliminar imagenes</button>
                         </div>
                         <div class="col-12"></div>
                     </div>
@@ -72,9 +76,9 @@
                                 <th></th>
                                 <th></th>
                                 <th class="w100">Imagen</th>
-                                <th class="w100">Titulo</th>
-                                <th class="w100">Descripcion</th>
-                                <th class="w100">Path</th>
+                                <th class="w100">Título</th>
+                                <th class="w100">Descripción</th>
+                                <th class="w100">Ruta Única</th>
                                 <th class="w100">Estado</th>
                                 <th class="w100">Copiar</th>
                                 <th class="text-nowrap w100">Accion</th>

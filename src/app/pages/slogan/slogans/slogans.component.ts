@@ -214,5 +214,31 @@ export class SlogansComponent implements OnInit {
 
 
 
+  eliminarPermanente(){
+    Swal.fire({
+      title: 'Desea eliminar de forma permanente los slogan seleccionados?',
+      text: `Esta a punto de eliminar los slogans seleccionados`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, elimanar los slogans de forma permanente'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.actualizarImagenes.map((element) => {
+          console.log('Elemento a eliminar: ',element);
+          this.sloganService.obtenerSloganById(element).subscribe((resp: any) => {
+            this.sloganService.eliminarSlogan(resp.data).subscribe((resp: any) => {
+              this.cargarSlogans(this.activo, this.inactivo);
+              Swal.fire(
+                'Eliminado',
+                `Imagenes eliminadas con éxito.`,
+                'success'
+              );
+            });
+          });
+        });
+      }
+    });
+  }
+
 
 }

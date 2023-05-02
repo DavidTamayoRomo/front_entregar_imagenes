@@ -56,24 +56,28 @@
                     </div>
                     <div class="row" *ngIf="botonActualizar">
                         <div class="col-12"></div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-success"
                                 (click)="actualizar(true)">Activar imagenes seleccionadas</button>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-danger"
                                 (click)="actualizar(false)">Desactivar imagenes seleccionadas</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-block btn-outline-danger"
+                                (click)="eliminarPermanente()">Eliminar imagenes</button>
                         </div>
                         <div class="col-12"></div>
                     </div>
                     <table class="table full-color-table full-inverse-table hover-table">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th class="w100">Imagen</th>
-                                <th class="w100">Decripcion</th>
-                                <th class="w100">Orgranización</th>
-                                <th class="w100">Path</th>
+                                <th class="w102"></th>
+                                <th class="w101">Imagen</th>
+                                <th class="w103">Descripción</th>
+                                <th class="w100">Organización</th>
+                                <th class="w100">Ruta Única</th>
                                 <th class="w100">Estado</th>
                                 <th class="text-nowrap w100">Copiar</th>
                                 <th class="text-nowrap w100">Action</th>
@@ -81,20 +85,20 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let imagen of imagenes;let index=index">
-                                <td>
+                                <td class="w102">
                                     <div class="demo-checkbox" width="10px">
                                         <input type="checkbox" [id]="'checkbox'+index" class="filled-in"
                                             (click)="seleccionar(imagen)" />
                                         <label [for]="'checkbox'+index"></label>
                                     </div>
                                 </td>
-                                <td >
-                                    <img [src]="imagen?.imagenReducida | imagen | async" width="150px">
+                                <td class="w101">
+                                    <img [src]="imagen?.imagenReducida | imagen | async" class="img-fluid" width="150" height="150">
                                 </td>
-                                <td>{{imagen.descripcion}}</td>
-                                <td>{{imagen.tipo}}</td>
-                                <td>{{imagen.path}}</td>
-                                <td>
+                                <td class="w103">{{imagen.descripcion}}</td>
+                                <td class="w100">{{imagen.tipo}}</td>
+                                <td class="w100">{{imagen.path}}</td>
+                                <td class="w100">
                                     <div class="switch">
                                         <label>
                                             <input type="checkbox" [checked]="imagen?.estado"
@@ -103,12 +107,12 @@
                                         </label>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="w100">
                                     <button (click)="crearLinkImagen(imagen)" class="btn btn-secondary">
                                         <i class="ti-files"></i> Copiar
                                     </button>
                                 </td>
-                                <td class="text-nowrap">
+                                <td class="text-nowrap w100">
                                     <a (click)="editar(imagen)" data-toggle="tooltip" data-original-title="Editar"> <i
                                             class="ti-pencil"></i> </a>
                                     <a data-toggle="tooltip" data-original-title="Borrar"

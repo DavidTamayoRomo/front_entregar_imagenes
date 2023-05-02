@@ -56,13 +56,17 @@
                     </div>
                     <div class="row" *ngIf="botonActualizar">
                         <div class="col-12"></div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-success"
                                 (click)="actualizar(true)">Activar funcionarios seleccionadas</button>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-danger"
                                 (click)="actualizar(false)">Desactivar funcionarios seleccionadas</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-block btn-outline-danger"
+                                (click)="eliminarPermanente()">Eliminar imagenes</button>
                         </div>
                         <div class="col-12"></div>
                     </div>

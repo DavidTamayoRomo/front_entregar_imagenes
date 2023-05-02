@@ -23,7 +23,7 @@ export class ImagenComponent implements OnInit {
 
   ImagenModel = new Imagen();
 
-
+  public editar: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -47,7 +47,7 @@ export class ImagenComponent implements OnInit {
     if (id === 'nuevo' || id === undefined) {
       return;
     }
-
+    this.editar = true;
     this.imagenService.obtenerImagenById(id)
       .subscribe((resp: any) => {
         console.log(resp);
@@ -116,6 +116,9 @@ export class ImagenComponent implements OnInit {
       } else {
 
         //this.registerForm.value.imagen = this.files1;
+        console.log('FILE 1: ' + this.files1);
+        console.log('FILE 2: ' + this.files2);
+
         this.registerForm.value.fileBase64 = this.files1;
         this.registerForm.value.nombreImagen = this.nombreImagen;
         this.registerForm.value.imagen = this.imagenSeleccionada.imagen;
@@ -168,6 +171,9 @@ export class ImagenComponent implements OnInit {
             title: 'ERROR: ' + err.error.statusCode + '\nRecargue la página e intente nuevamente '
           })
         });
+
+
+
       }
     } else {
       //crear
@@ -222,31 +228,41 @@ export class ImagenComponent implements OnInit {
 
           });
         } else {
-          this.registerForm.value.imagen = this.files1;
-          this.registerForm.value.fileBase64 = this.files1;
-          this.registerForm.value.fileBase64_1 = this.files2;
-          this.registerForm.value.nombreImagen = this.nombreImagen;
-          this.registerForm.value.nombreImagen2 = this.nombreImagen2;
-          console.log(this.registerForm.value);
-          this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            })
-            Toast.fire({
-              icon: 'success',
-              title: 'Se creo correctamente'
-            })
-            console.log(resp);
-            this.router.navigateByUrl('/imagenes');
-          }, (err: any) => { });
+
+          if (this.files1 == null || this.files2 == null) {
+            Swal.fire(
+              'Ingrese las imagenes',
+              'Debe ingresar las dos imagenes para guardar los datos',
+              'warning'
+            )
+          } else {
+
+            this.registerForm.value.imagen = this.files1;
+            this.registerForm.value.fileBase64 = this.files1;
+            this.registerForm.value.fileBase64_1 = this.files2;
+            this.registerForm.value.nombreImagen = this.nombreImagen;
+            this.registerForm.value.nombreImagen2 = this.nombreImagen2;
+            console.log(this.registerForm.value);
+            this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Se creo correctamente'
+              })
+              console.log(resp);
+              this.router.navigateByUrl('/imagenes');
+            }, (err: any) => { });
+          }
         }
       });
 
@@ -277,7 +293,7 @@ export class ImagenComponent implements OnInit {
   }
 
   onRemove(event: any) {
-    this.files = [];
+    this.files = null;
   }
 
   onSelectReducida(event: any) {
@@ -294,7 +310,7 @@ export class ImagenComponent implements OnInit {
   }
 
   onRemoveReducida(event: any) {
-    this.files2 = [];
+    this.files2 = null;
   }
 
 }

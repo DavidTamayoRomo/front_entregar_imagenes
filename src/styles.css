@@ -11,3 +11,18 @@
 .oculto{
     display: none;
 }
+
+.w100{
+    width: 200px;
+}
+.w101{
+    width: 170px;
+}
+.w102{
+    width: 1px;
+    
+}
+.w103{
+    width: 250px;
+    
+}

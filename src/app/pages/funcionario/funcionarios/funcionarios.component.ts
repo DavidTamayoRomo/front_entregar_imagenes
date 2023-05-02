@@ -222,4 +222,31 @@ export class FuncionariosComponent implements OnInit {
     }
   }
 
+
+  eliminarPermanente(){
+    Swal.fire({
+      title: 'Desea eliminar de forma permanente los funcionarios seleccionadas?',
+      text: `Esta a punto de eliminar los funcionarios seleccionados`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, elimanar los funcionarios de forma permanente'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.actualizarImagenes.map((element) => {
+          console.log('Elemento a eliminar: ',element);
+          this.funcionarioService.obtenerFuncionarioById(element).subscribe((resp: any) => {
+            this.funcionarioService.eliminarFuncionario(resp.data).subscribe((resp: any) => {
+              this.cargarfuncionarios(this.activo, this.inactivo);
+              Swal.fire(
+                'Eliminado',
+                `Funcionarios eliminados con éxito.`,
+                'success'
+              );
+            });
+          });
+        });
+      }
+    });
+  }
+
 }
