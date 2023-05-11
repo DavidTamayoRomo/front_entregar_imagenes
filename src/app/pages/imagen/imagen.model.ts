@@ -10,5 +10,8 @@ export class Imagen {
         public nombreImagen?:string,
         public fileBase64?:string,
         public fechasActualizacion?:any,
+        public usuario_creacion?:string,
+        public usuario_actualizacion?:string,
+
     ){}
 }

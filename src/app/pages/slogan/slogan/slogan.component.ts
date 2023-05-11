@@ -5,6 +5,7 @@ import { SloganService } from 'src/app/services/slogan.service';
 import { Wso2Service } from 'src/app/services/wso2.service';
 import Swal from 'sweetalert2';
 import { Slogan } from '../slogan.model';
+import { KeycloakAuthService } from 'src/app/auth/keycloak-auth.service';
 
 @Component({
   selector: 'app-slogan',
@@ -19,13 +20,14 @@ export class SloganComponent implements OnInit {
   public nombreImagen: any = null;
 
   SloganModel = new Slogan();
-
+  public usuario: any;
   constructor(
     private fb: FormBuilder,
     private sloganService: SloganService,
     private wso2Service: Wso2Service,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private keycloakAuthService: KeycloakAuthService
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class SloganComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarSloganbyId(id);
     });
+    this.usuario = this.keycloakAuthService.getLoggedUser();
   }
 
   async cargarSloganbyId(id: string) {
@@ -53,6 +56,8 @@ export class SloganComponent implements OnInit {
     descripcion: [null],
     path: [null],
     estado: [null],
+    usuario_creacion: [null],
+    usuario_actualizacion: [null],
   })
 
 
@@ -112,6 +117,9 @@ export class SloganComponent implements OnInit {
         this.registerForm.value.fileBase64 = this.files1;
         this.registerForm.value.nombreImagen = this.nombreImagen;//nombre de la imagen
 
+        this.registerForm.value.usuario_creacion = this.sloganSeleccionada.usuario_creacion;
+        this.registerForm.value.usuario_actualizacion = this.usuario.preferred_username;
+
         this.sloganService.updateSlogan(this.sloganSeleccionada._id, this.registerForm.value).subscribe(() => {
           const Toast = Swal.mixin({
             toast: true,
@@ -157,6 +165,8 @@ export class SloganComponent implements OnInit {
 
       this.registerForm.value.fileBase64 = this.files1;
       this.registerForm.value.nombreImagen = this.nombreImagen;//nombre de la imagen
+      this.registerForm.value.usuario_creacion = this.usuario.preferred_username;
+
       console.log(this.registerForm.value);
       this.sloganService.crearSlogan(this.registerForm.value).subscribe((resp: any) => {
         const Toast = Swal.mixin({

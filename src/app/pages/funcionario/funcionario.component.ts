@@ -5,6 +5,7 @@ import { FuncionarioService } from 'src/app/services/funcionario.service';
 import { Wso2Service } from 'src/app/services/wso2.service';
 import Swal from 'sweetalert2';
 import { Funcionario } from './funcionario.model';
+import { KeycloakAuthService } from 'src/app/auth/keycloak-auth.service';
 
 
 @Component({
@@ -20,13 +21,14 @@ export class FuncionarioComponent implements OnInit {
   public nombreImagen: any = null;
 
   FuncionarioModel = new Funcionario();
-
+  public usuario: any;
   constructor(
     private fb: FormBuilder,
     private funcionarioService: FuncionarioService,
     private wso2Service: Wso2Service,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private keycloakAuthService: KeycloakAuthService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class FuncionarioComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ id }) => {
       this.cargarFuncionariobyId(id);
     });
+    this.usuario = this.keycloakAuthService.getLoggedUser();
   }
 
   async cargarFuncionariobyId(id: string) {
@@ -59,7 +62,9 @@ export class FuncionarioComponent implements OnInit {
     fechaNacimiento: [null],
     redesSociales: [null],
     estado: [null],
-    nombreImgen: [null]
+    nombreImgen: [null],
+    usuario_creacion: [null],
+    usuario_actualizacion: [null],
   })
 
   LlenarForm(resp: any) {
@@ -128,6 +133,9 @@ export class FuncionarioComponent implements OnInit {
         this.registerForm.value.fileBase64 = this.files1;
         this.registerForm.value.nombreImagen = this.nombreImagen;//nombre de la imagen
 
+        this.registerForm.value.usuario_creacion = this.funcionarioSeleccionada.usuario_creacion;
+        this.registerForm.value.usuario_actualizacion = this.usuario.preferred_username;
+
         this.funcionarioService.updateFuncionario(this.funcionarioSeleccionada._id, this.registerForm.value).subscribe((resp: any) => {
           const Toast = Swal.mixin({
             toast: true,
@@ -174,6 +182,9 @@ export class FuncionarioComponent implements OnInit {
       this.registerForm.value.Funcionario = this.files1;
       this.registerForm.value.fileBase64 = this.files1;
       this.registerForm.value.nombreImagen = this.nombreImagen;//nombre de la imagen
+
+      this.registerForm.value.usuario_creacion = this.usuario.preferred_username;
+      
       console.log(this.registerForm.value);
       this.funcionarioService.crearFuncionario(this.registerForm.value).subscribe((resp: any) => {
         const Toast = Swal.mixin({

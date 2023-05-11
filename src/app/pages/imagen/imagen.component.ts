@@ -6,6 +6,7 @@ import { Imagen } from './imagen.model';
 
 import Swal from 'sweetalert2';
 import { Wso2Service } from 'src/app/services/wso2.service';
+import { KeycloakAuthService } from 'src/app/auth/keycloak-auth.service';
 
 @Component({
   selector: 'app-imagen',
@@ -25,12 +26,15 @@ export class ImagenComponent implements OnInit {
 
   public editar: boolean = false;
 
+  public usuario: any;
+
   constructor(
     private fb: FormBuilder,
     private imagenService: ImagenService,
     private wso2Service: Wso2Service,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private keycloakAuthService: KeycloakAuthService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +45,9 @@ export class ImagenComponent implements OnInit {
     this.wso2Service.getToken().subscribe();
 
     this.cargarImagenbyId(history.state.data);
+
+    this.usuario = this.keycloakAuthService.getLoggedUser();
+    console.log('USUARIO: ',this.usuario.preferred_username);
   }
 
   async cargarImagenbyId(id: string) {
@@ -63,7 +70,10 @@ export class ImagenComponent implements OnInit {
     imagen: [null],
     path: [null],
     nombreImagen: [null],
-    fechasActualizacion: [null]
+    fechasActualizacion: [null],
+    _id:[null],
+    usuario_creacion: [null],
+    usuario_actualizacion: [null],
   })
 
   LlenarForm(resp: any) {
@@ -125,12 +135,16 @@ export class ImagenComponent implements OnInit {
         this.registerForm.value.nombreImagen2 = this.nombreImagen2;
         this.registerForm.value.fileBase64_1 = this.files2;
         this.registerForm.value.imagenReducida = this.imagenSeleccionada.imagenReducida;
+        this.registerForm.value._id = this.imagenSeleccionada._id;
         let fechas = this.imagenSeleccionada.fechasActualizacion;
         if (fechas === null) {
           fechas = [];
         }
         fechas.push(new Date());
         this.registerForm.value.fechasActualizacion = fechas;
+        
+        this.registerForm.value.usuario_creacion = this.imagenSeleccionada.usuario_creacion;
+        this.registerForm.value.usuario_actualizacion = this.usuario.preferred_username;
 
         this.imagenService.updateImagen(this.imagenSeleccionada._id, this.registerForm.value).subscribe((resp: any) => {
           const Toast = Swal.mixin({
@@ -204,6 +218,7 @@ export class ImagenComponent implements OnInit {
               this.registerForm.value.fileBase64_1 = this.files2;
               this.registerForm.value.nombreImagen = this.nombreImagen;
               this.registerForm.value.nombreImagen2 = this.nombreImagen2;
+              this.registerForm.value.usuario_creacion = this.usuario.preferred_username;
               console.log(this.registerForm.value);
               this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
                 const Toast = Swal.mixin({
@@ -242,6 +257,7 @@ export class ImagenComponent implements OnInit {
             this.registerForm.value.fileBase64_1 = this.files2;
             this.registerForm.value.nombreImagen = this.nombreImagen;
             this.registerForm.value.nombreImagen2 = this.nombreImagen2;
+            this.registerForm.value.usuario_creacion = this.usuario.preferred_username;
             console.log(this.registerForm.value);
             this.imagenService.crearImagen(this.registerForm.value).subscribe((resp: any) => {
               const Toast = Swal.mixin({

@@ -5,6 +5,8 @@ export class Slogan {
         public titulo?:string,
         public descripcion?:string,
         public path?:string,
-        public estado?:boolean
+        public estado?:boolean,
+        public usuario_creacion?:string,
+        public usuario_actualizacion?:string,
     ){}
 }

@@ -9,6 +9,8 @@ export class Funcionario {
         public descripcion?:string,
         public fechaNacimiento?:Date,
         public redesSociales?:any,
-        public estado?:boolean
+        public estado?:boolean,
+        public usuario_creacion?:string,
+        public usuario_actualizacion?:string,
     ){}
 }
