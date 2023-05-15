@@ -48,7 +48,7 @@ export class SlogansComponent implements OnInit {
       this.slogans = resp.data;
       this.slogans1 = resp.data;
       this.slogansTemporales = resp.data;
-      this.totalslogans = resp.totalslogans;
+      this.totalslogans = resp.totalSlogans;
     });
   }
 
@@ -80,18 +80,18 @@ export class SlogansComponent implements OnInit {
   borrarSlogan(slogan: any) {
 
     Swal.fire({
-      title: 'Desea eliminar la slogan ?',
-      text: `Esta a punto de borrar a ${slogan.nombre}`,
+      title: 'Desea eliminar el slogan ?',
+      text: `Esta a punto de borrar a ${slogan.titulo}`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Si, borrar esta slogan'
+      confirmButtonText: 'Si, borrar slogan seleccionado'
     }).then((result) => {
       if (result.isConfirmed) {
         this.sloganService.eliminarSlogan(slogan).subscribe(resp => {
           this.cargarSlogans(this.activo, this.inactivo);
           Swal.fire(
             'Borrado!',
-            `A sido eliminada con éxito.`,
+            `Eliminado con éxito.`,
             'success'
           )
         });

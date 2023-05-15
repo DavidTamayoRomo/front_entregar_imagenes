@@ -58,15 +58,15 @@
                         <div class="col-12"></div>
                         <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-success"
-                                (click)="actualizar(true)">Activar slogans seleccionadas</button>
+                                (click)="actualizar(true)">Activar slogans seleccionados</button>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-danger"
-                                (click)="actualizar(false)">Desactivar slogans seleccionadas</button>
+                                (click)="actualizar(false)">Desactivar slogans seleccionados</button>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-danger"
-                                (click)="eliminarPermanente()">Eliminar imagenes</button>
+                                (click)="eliminarPermanente()">Eliminar slogan seleccionados</button>
                         </div>
                         <div class="col-12"></div>
                     </div>
@@ -81,7 +81,7 @@
                                 <th class="w100">Ruta Única</th>
                                 <th class="w100">Estado</th>
                                 <th class="w100">Copiar</th>
-                                <th class="text-nowrap w100">Accion</th>
+                                <th class="text-nowrap w100">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,7 +111,7 @@
                                 </td>
 
                                 <td>
-                                    <button (click)="crearLink(slogan)" class="btn btn-secondary">
+                                    <button *ngIf="slogan?.estado" (click)="crearLink(slogan)" class="btn btn-secondary">
                                         <i class="ti-files"></i> Copiar
                                     </button>
                                 </td>

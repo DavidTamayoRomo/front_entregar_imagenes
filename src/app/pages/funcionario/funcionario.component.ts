@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
 import { Wso2Service } from 'src/app/services/wso2.service';
@@ -53,12 +53,12 @@ export class FuncionarioComponent implements OnInit {
 
   }
   public registerForm = this.fb.group({
-    cargo: [null],
-    nombres: [null],
-    apellidos: [null],
+    cargo: [null, Validators.required],
+    nombres: [null, Validators.required],
+    apellidos: [null, Validators.required],
     foto: [null],
-    titulo: [null],
-    descripcion: [null],
+    titulo: [null, Validators.required],
+    descripcion: [null, Validators.required],
     fechaNacimiento: [null],
     redesSociales: [null],
     estado: [null],
@@ -178,33 +178,40 @@ export class FuncionarioComponent implements OnInit {
       }
     } else {
       //crear
+      if (this.registerForm.invalid) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Verificar campos inválidos \n Indicados con el color rojo'
+        });
+      } else {
+        this.registerForm.value.Funcionario = this.files1;
+        this.registerForm.value.fileBase64 = this.files1;
+        this.registerForm.value.nombreImagen = this.nombreImagen;//nombre de la imagen
 
-      this.registerForm.value.Funcionario = this.files1;
-      this.registerForm.value.fileBase64 = this.files1;
-      this.registerForm.value.nombreImagen = this.nombreImagen;//nombre de la imagen
+        this.registerForm.value.usuario_creacion = this.usuario.preferred_username;
 
-      this.registerForm.value.usuario_creacion = this.usuario.preferred_username;
-      
-      console.log(this.registerForm.value);
-      this.funcionarioService.crearFuncionario(this.registerForm.value).subscribe((resp: any) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        Toast.fire({
-          icon: 'success',
-          title: 'Se creo correctamente'
-        })
-        console.log(resp);
-        this.router.navigateByUrl('/funcionarios');
-      }, (err: any) => { });
+        console.log(this.registerForm.value);
+        this.funcionarioService.crearFuncionario(this.registerForm.value).subscribe((resp: any) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Se creo correctamente'
+          })
+          console.log(resp);
+          this.router.navigateByUrl('/funcionarios');
+        }, (err: any) => { });
+      }
+
     }
 
 

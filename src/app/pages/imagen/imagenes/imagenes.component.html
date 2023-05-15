@@ -44,9 +44,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Imagenes registrados</h4>
-                <h6 class="card-subtitle">Lista de todos los imagenes existentes en el sistema</h6>
-                <h6 class="card-subtitle">Total de imagenes: {{totalImagenes}}</h6>
+                <h4 class="card-title">Imágenes registradas</h4>
+                <h6 class="card-subtitle">Lista de todos los imágenes existentes en el sistema</h6>
+                <h6 class="card-subtitle">Total de imágenes: {{totalImagenes}} </h6>
                 <div class="table-responsive">
                     <div *ngIf="txtBusqueda.value.length === 0">
                         <button (click)="paginar(-10)" class="btn btn-secondary">Anterior</button>
@@ -58,15 +58,15 @@
                         <div class="col-12"></div>
                         <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-success"
-                                (click)="actualizar(true)">Activar imagenes seleccionadas</button>
+                                (click)="actualizar(true)">Activar imágenes seleccionadas</button>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-danger"
-                                (click)="actualizar(false)">Desactivar imagenes seleccionadas</button>
+                                (click)="actualizar(false)">Desactivar imágenes seleccionadas</button>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-block btn-outline-danger"
-                                (click)="eliminarPermanente()">Eliminar imagenes</button>
+                                (click)="eliminarPermanente()">Eliminar imágenes</button>
                         </div>
                         <div class="col-12"></div>
                     </div>
@@ -80,7 +80,7 @@
                                 <th class="w100">Ruta Única</th>
                                 <th class="w100">Estado</th>
                                 <th class="text-nowrap w100">Copiar</th>
-                                <th class="text-nowrap w100">Action</th>
+                                <th class="text-nowrap w100">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,7 +108,7 @@
                                     </div>
                                 </td>
                                 <td class="w100">
-                                    <button (click)="crearLinkImagen(imagen)" class="btn btn-secondary">
+                                    <button *ngIf="imagen?.estado" (click)="crearLinkImagen(imagen)" class="btn btn-secondary">
                                         <i class="ti-files"></i> Copiar
                                     </button>
                                 </td>

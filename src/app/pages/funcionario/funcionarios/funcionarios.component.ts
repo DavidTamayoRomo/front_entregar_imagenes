@@ -84,10 +84,10 @@ export class FuncionariosComponent implements OnInit {
     
     Swal.fire({
       title: 'Desea eliminar la funcionario ?',
-      text: `Esta a punto de borrar a ${funcionario.nombre}`,
+      text: `Esta a punto de borrar a ${funcionario.nombres}`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Si, borrar esta funcionario'
+      confirmButtonText: 'Si, borrar funcionario seleccionado'
     }).then((result) => {
       if (result.isConfirmed) {
         this.funcionarioService.eliminarFuncionario(funcionario).subscribe(resp => {
@@ -106,16 +106,17 @@ export class FuncionariosComponent implements OnInit {
 
   
   actualizarEstado(funcionario:any){
+    console.log(funcionario.estado);
     if (funcionario.estado) {
       funcionario.estado = false;
     }else{
       funcionario.estado = true;
     }
     this.funcionarioService.updateFuncionario(funcionario._id,funcionario).subscribe(resp=>{
-      console.log(resp);
+      this.cargarfuncionarios(this.activo, this.inactivo);
       Swal.fire(
         'Actualizado!',
-        `funcionario actualizada con éxito.`,
+        `Funcionario actualizado con éxito.`,
         'success'
       )
     });

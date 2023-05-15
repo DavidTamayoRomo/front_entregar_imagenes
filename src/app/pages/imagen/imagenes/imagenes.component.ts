@@ -182,13 +182,12 @@ export class ImagenesComponent implements OnInit {
   }
 
   actualizar(valor: boolean) {
-    //swal de confirmacion
     Swal.fire({
-      title: 'Desea actualizar las imagenes ?',
-      text: `Esta a punto de actualizar las imagenes seleccionadas`,
+      title: 'Desea actualizar las imágenes ?',
+      text: `Esta a punto de actualizar las imágenes seleccionadas`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Si, actualizar las imagenes'
+      confirmButtonText: 'Si, actualizar las imágenes'
     }).then((result) => {
       if (result.isConfirmed) {
         this.actualizarImagenes.map((element) => {
@@ -199,7 +198,7 @@ export class ImagenesComponent implements OnInit {
               if (this.actualizarImagenes.length == 0) this.botonActualizar = false;
               Swal.fire(
                 'Actualizado!',
-                `Imagenes actualizada con éxito.`,
+                `Imágenes actualizadas con éxito.`,
                 'success'
               );
               this.cargarImagenes(this.activo, this.inactivo);
@@ -243,11 +242,11 @@ export class ImagenesComponent implements OnInit {
 
   eliminarPermanente(){
     Swal.fire({
-      title: 'Desea eliminar de forma permanente las imagenes seleccionadas?',
-      text: `Esta a punto de eliminar las imagenes seleccionadas`,
+      title: 'Desea eliminar de forma permanente las imágenes seleccionadas?',
+      text: `Esta a punto de eliminar las imágenes seleccionadas`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Si, elimanar las imagenes de forma permanente'
+      confirmButtonText: 'Si, eliminar las imágenes de forma permanente'
     }).then((result) => {
       if (result.isConfirmed) {
         this.actualizarImagenes.map((element) => {
@@ -257,7 +256,7 @@ export class ImagenesComponent implements OnInit {
               this.cargarImagenes(this.activo, this.inactivo);
               Swal.fire(
                 'Eliminado',
-                `Imagenes eliminadas con éxito.`,
+                `Imágenes eliminadas con éxito.`,
                 'success'
               );
             });

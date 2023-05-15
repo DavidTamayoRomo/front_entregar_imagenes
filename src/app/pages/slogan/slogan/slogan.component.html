@@ -14,24 +14,24 @@
             </div>
 
             <div class="form-group">
-                <label for="exampleInputuname">Titulo *</label>
+                <label for="exampleInputuname">Título *</label>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Titulo" formControlName="titulo">
+                    <input type="text" class="form-control" placeholder="Título Slogan correspondiente al periodo de las autoridades vigentes" formControlName="titulo">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('titulo')">El titulo obligatorio</p>
+                    <p *ngIf="campoNoValido('titulo')">El título obligatorio</p>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="exampleInputuname">Descripcion *</label>
+                <label for="exampleInputuname">Descripción *</label>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Descripcion" formControlName="descripcion">
+                    <input type="text" class="form-control" placeholder="Definición del Slogan" formControlName="descripcion">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('descripcion')">La descripcion es obligatoria</p>
+                    <p *ngIf="campoNoValido('descripcion')">La descripción es obligatoria</p>
                 </div>
             </div>
             
@@ -39,17 +39,17 @@
                 <label for="exampleInputuname">Path *</label>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Path" formControlName="path">
+                    <input type="text" class="form-control" placeholder="Identificador único para mostrar datos de slogan" formControlName="path">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('path')">El Path es obligatorio</p>
+                    <p *ngIf="campoNoValido('path')">El Identificador único es obligatorio</p>
                 </div>
             </div>
 
 
             <div class="form-group">
                 <ngx-dropzone (change)="onSelect($event)">
-                    <ngx-dropzone-label>Arrastrar aqui o hacer click</ngx-dropzone-label>
+                    <ngx-dropzone-label>Arrastrar aquí o hacer click</ngx-dropzone-label>
                     <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                         <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                     </ngx-dropzone-preview>

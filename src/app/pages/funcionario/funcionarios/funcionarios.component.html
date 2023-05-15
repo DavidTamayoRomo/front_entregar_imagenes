@@ -83,7 +83,7 @@
                                 <th class="text-nowrap w100">Fecha Nacimiento</th>
                                 <th class="text-nowrap w100">Estado</th>
                                 <th class="text-nowrap w100">Copiar</th>
-                                <th class="text-nowrap w100">Accion</th>
+                                <th class="text-nowrap w100">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,7 +115,7 @@
                                 </td>
 
                                 <td>
-                                    <button (click)="crearLink(funcionario)" class="btn btn-secondary">
+                                    <button *ngIf="funcionario?.estado" (click)="crearLink(funcionario)" class="btn btn-secondary">
                                         <i class="ti-files"></i> Copiar
                                     </button>
                                 </td>
