@@ -20,7 +20,7 @@
                     <input type="text" class="form-control" placeholder="Cargo" formControlName="cargo">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('cargo')">El cargo de la tipo es obligatorio</p>
+                    <p *ngIf="campoNoValido('cargo')">El cargo es obligatorio</p>
                 </div>
             </div>
 
@@ -47,24 +47,24 @@
             </div>
 
             <div class="form-group">
-                <label for="exampleInputuname">Titulo *</label>
+                <label for="exampleInputuname">Título *</label>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Titulo" formControlName="titulo">
+                    <input type="text" class="form-control" placeholder="Ultimo título académico" formControlName="titulo">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('titulo')">El titulo es obligatorio</p>
+                    <p *ngIf="campoNoValido('titulo')">El título es obligatorio</p>
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="exampleInputuname">Descripcion *</label>
+                <label for="exampleInputuname">Descripción *</label>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" placeholder="descripcion" formControlName="descripcion">
+                    <input type="text" class="form-control" placeholder="Breve descripción del funcionario" formControlName="descripcion">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('descripcion')">La descripcion es obligatorio</p>
+                    <p *ngIf="campoNoValido('descripcion')">La descripción es obligatoria</p>
                 </div>
             </div>
             
@@ -75,13 +75,13 @@
                     <input type="date" class="form-control" placeholder="fechaNacimiento" formControlName="fechaNacimiento">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('fechaNacimiento')">La fechaNacimiento es obligatorio</p>
+                    <p *ngIf="campoNoValido('fechaNacimiento')">La fecha de Nacimiento es obligatoria</p>
                 </div>
             </div>
 
             <div class="form-group">
                 <ngx-dropzone (change)="onSelect($event)">
-                    <ngx-dropzone-label>Arrastrar aqui o hacer click</ngx-dropzone-label>
+                    <ngx-dropzone-label>Arrastrar aquí o hacer click</ngx-dropzone-label>
                     <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                         <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                     </ngx-dropzone-preview>

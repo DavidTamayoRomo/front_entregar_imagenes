@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SloganService } from 'src/app/services/slogan.service';
 import { Wso2Service } from 'src/app/services/wso2.service';
@@ -52,9 +52,9 @@ export class SloganComponent implements OnInit {
 
   public registerForm = this.fb.group({
     imagen: [null],
-    titulo: [null],
-    descripcion: [null],
-    path: [null],
+    titulo: [null, Validators.required],
+    descripcion: [null, Validators.required],
+    path: [null, Validators.required],
     estado: [null],
     usuario_creacion: [null],
     usuario_actualizacion: [null],
@@ -162,31 +162,38 @@ export class SloganComponent implements OnInit {
       }
     } else {
       //crear
+      if (this.registerForm.invalid) {
+        Swal.fire({
+          icon: 'error',
+          text: 'Verificar campos inválidos \n Indicados con el color rojo',
+        });
+      } else {
+        this.registerForm.value.fileBase64 = this.files1;
+        this.registerForm.value.nombreImagen = this.nombreImagen;//nombre de la imagen
+        this.registerForm.value.usuario_creacion = this.usuario.preferred_username;
 
-      this.registerForm.value.fileBase64 = this.files1;
-      this.registerForm.value.nombreImagen = this.nombreImagen;//nombre de la imagen
-      this.registerForm.value.usuario_creacion = this.usuario.preferred_username;
+        console.log(this.registerForm.value);
+        this.sloganService.crearSlogan(this.registerForm.value).subscribe((resp: any) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Se creo correctamente'
+          })
+          console.log(resp);
+          this.router.navigateByUrl('/slogans');
+        }, (err: any) => { });
+      }
 
-      console.log(this.registerForm.value);
-      this.sloganService.crearSlogan(this.registerForm.value).subscribe((resp: any) => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        Toast.fire({
-          icon: 'success',
-          title: 'Se creo correctamente'
-        })
-        console.log(resp);
-        this.router.navigateByUrl('/slogans');
-      }, (err: any) => { });
     }
 
 

@@ -17,21 +17,21 @@
                 <label for="exampleInputuname">Organización *</label>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Tipo" formControlName="tipo">
+                    <input type="text" class="form-control" placeholder="Dependencia o sistema al que pertenece la imagen" formControlName="tipo">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('tipo')">La Orgranización de la tipo es obligatorio</p>
+                    <p *ngIf="campoNoValido('tipo')">La Organización es obligatoria</p>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="exampleInputuname">Descripcion *</label>
+                <label for="exampleInputuname">Descripción *</label>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Descripcion" formControlName="descripcion">
+                    <input type="text" class="form-control" placeholder="Breve descripción " formControlName="descripcion">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('descripcion')">El Nombre de la descripcion es obligatorio</p>
+                    <p *ngIf="campoNoValido('descripcion')">La descripción es obligatoria</p>
                 </div>
             </div>
 
@@ -39,10 +39,10 @@
                 <label for="exampleInputuname">Path *</label>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Path" formControlName="path">
+                    <input type="text" class="form-control" placeholder="Identificador único para servir imagen" formControlName="path">
                 </div>
                 <div class="text-danger">
-                    <p *ngIf="campoNoValido('path')">El Nombre de la path es obligatorio</p>
+                    <p *ngIf="campoNoValido('path')">El path es obligatorio</p>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <ngx-dropzone (change)="onSelect($event)">
-                            <ngx-dropzone-label>Arrastrar aqui o hacer click (IMAGEN TAMAÑO COMPLETO)</ngx-dropzone-label>
+                            <ngx-dropzone-label>Arrastrar aquí o hacer click (IMAGEN TAMAÑO COMPLETO)</ngx-dropzone-label>
                             <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                             </ngx-dropzone-preview>
@@ -60,7 +60,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <ngx-dropzone (change)="onSelectReducida($event)">
-                            <ngx-dropzone-label>Arrastrar aqui o hacer click (IMAGEN PEQUEÑA)</ngx-dropzone-label>
+                            <ngx-dropzone-label>Arrastrar aquí o hacer click (IMAGEN PEQUEÑA)</ngx-dropzone-label>
                             <ngx-dropzone-preview *ngFor="let f of files2" [removable]="true" (removed)="onRemoveReducida(f)">
                                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                             </ngx-dropzone-preview>
