@@ -19,7 +19,7 @@ WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
 RUN rm -rf ./*
 # Copy static assets from builder stage
-COPY --from=builder /app/dist/FrontEnd-Jetmind .
+COPY --from=builder /app/dist/MDMQ-ARTES-FRONT-END .
 #Copiar archivo de configuracion
 COPY default.conf /etc/nginx/conf.d/default.conf
 # Containers run nginx with global directives and daemon off
